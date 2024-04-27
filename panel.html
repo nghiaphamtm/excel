@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+</head>
+
+<body>
+    <button id="helloButton">Hwllo world</button>
+
+</body>
+
+<script>
+    Office.onReady((info) => {
+        if (info.host === Office.HostType.Excel) {
+            document.getElementById("helloButton").onclick = sayHello;
+        }
+    });
+
+    function sayHello() {
+        Excel.run(context => {
+
+            // Insert text 'Hello world!' into cell A1.
+            context.workbook.worksheets.getActiveWorksheet().getRange("A1").values = [['Hello world!']];
+
+            // sync the context to run the previous API call, and return.
+            return context.sync();
+        });
+    }
+</script>
+
+</html>
